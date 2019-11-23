@@ -1,10 +1,11 @@
 """ Простой модуль для нахождения одинаковых файлов в выбранных директориях """
 import os
 import sys
+import re
 import humanize
 
 FILES = {}
-EXCEPT = ['Thumbs.db']
+EXCEPT = ['Thumbs.db', 'VIDEO_TS*', 'VTS_*']
 
 
 def get_files_recursive(path, local_path=''):
@@ -16,7 +17,7 @@ def get_files_recursive(path, local_path=''):
         if os.path.isdir(os.path.join(path, local_path, file_name)):
             get_files_recursive(path, os.path.join(local_path, file_name))
         else:
-            if file_name in EXCEPT:
+            if any(re.match(pattern, file_name) for pattern in EXCEPT):
                 continue
             if file_name not in FILES.keys():
                 FILES[file_name] = [os.path.join(path, local_path)]
@@ -24,7 +25,7 @@ def get_files_recursive(path, local_path=''):
                 FILES[file_name].append(os.path.join(path, local_path))
                 print(f'{file_name}:')
                 for same_file in FILES[file_name]:
-                    print(f'\t{same_file}')
+                    print(f'\t{same_file} {humanize.naturalsize(os.path.getsize(same_file))}')
 
 
 PATHS = []
