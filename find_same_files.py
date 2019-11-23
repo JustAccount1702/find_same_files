@@ -33,7 +33,7 @@ if len(sys.argv) == 1:
     print("Введите пустую строку для окончания ввода")
     PATH = input(f"Каталог #{PATH_NUM}: ")
     while PATH != '':
-        PATH += 1
+        PATH_NUM += 1
         PATHS.append(PATH)
         PATH = input(f"Каталог #{PATH_NUM}: ")
 else:
