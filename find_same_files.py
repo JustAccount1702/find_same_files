@@ -57,10 +57,8 @@ if not SAME_FILES:
 
 for file in SAME_FILES:
     OUTPUT_FILE.write(f"{file}:\n")
-    print(f"{file}:")
     for file_path in SAME_FILES[file]:
         OUTPUT_FILE.write(f"\t{file_path}: {humanize.naturalsize(os.path.getsize(file_path))}\n")
-        print(f"\t{file_path}: {humanize.naturalsize(os.path.getsize(file_path))}")
 
 print('Удалить файлы в:')
 for i, PATH in enumerate(PATHS):
