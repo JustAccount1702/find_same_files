@@ -49,13 +49,17 @@ for file in FILES:
     if len(FILES[file]) > 1:
         SAME_FILES[file] = FILES[file]
 
+OUTPUT_FILE = open('output.txt', 'w')
 if not SAME_FILES:
+    OUTPUT_FILE.write('Общих файлов не найдено\n')
     print('Общих файлов не найдено')
     sys.exit(0)
 
 for file in SAME_FILES:
-    print(file + ":")
+    OUTPUT_FILE.write(f"{file}:\n")
+    print(f"{file}:")
     for file_path in SAME_FILES[file]:
+        OUTPUT_FILE.write(f"\t{file_path}: {humanize.naturalsize(os.path.getsize(file_path))}\n")
         print(f"\t{file_path}: {humanize.naturalsize(os.path.getsize(file_path))}")
 
 print('Удалить файлы в:')
